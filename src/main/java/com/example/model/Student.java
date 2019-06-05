@@ -10,7 +10,9 @@ public class Student implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student")
+    private Address address;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -46,8 +48,17 @@ public class Student implements Serializable {
         this.lastName = lastName;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return firstName;
     }
+
 }

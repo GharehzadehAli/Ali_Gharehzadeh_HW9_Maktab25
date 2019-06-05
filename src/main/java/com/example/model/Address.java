@@ -7,13 +7,17 @@ import java.io.Serializable;
 @Table(name = "addresses")
 public class Address implements Serializable {
     public Address(){}
-    public Address(String city,String state,String number){
+    public Address(String city,String state,String number,String postalAddress,String postalCode){
         this.city=city;
         this.state=state;
         this.number=number;
+        this.postalAddress=postalAddress;
+        this.postalCode=postalCode;
     }
     @OneToOne(mappedBy = "address")
     Teacher teacher;
+    @OneToOne(mappedBy = "address")
+    Student student;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -21,8 +25,12 @@ public class Address implements Serializable {
     private String city;
     @Column(name = "state")
     private String state;
-    @Column(name = "number")
+    @Column(name = "number",nullable = false,unique = true)
     private String number;
+    @Column(name = "postalAddress")
+    private String postalAddress;
+    @Column(name = "postalCode")
+    private String postalCode;
 
     public long getId() {
         return id;

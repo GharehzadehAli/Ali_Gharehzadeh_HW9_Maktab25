@@ -63,8 +63,9 @@ public class TeacherDaoImpl extends BaseDaoImpl<Teacher> implements TeacherDAO {
         list = session.createQuery(
                 "from Teacher t where salary=(select max(salary) from t)")
                 .getResultList();
-        list.addAll((Collection) session.createQuery(
-                "from Teacher t where salary" + "=(select min (salary) from t)").getResultList());
+        list.addAll(session.createQuery(
+                "from Teacher t where salary=(select min (salary) from t)")
+                .getResultList());
 
         session.getTransaction().commit();
 
@@ -89,18 +90,46 @@ public class TeacherDaoImpl extends BaseDaoImpl<Teacher> implements TeacherDAO {
     }
 
     @Override
-    public List<Teacher> findByCity() {
+    public ArrayList findByCity() {
         Session session = factory.openSession();
-        List<Teacher> list;
+        ArrayList<Teacher> list = new ArrayList<>();
         session.beginTransaction();
         Query query = session.createQuery(
-                "from Teacher t join Address a on t.id = a.id where a.city='tehran'");
-        list = query.getResultList();
+                "select t from Teacher t join Address a on t.address.id = a.id where a.city='tehran'");
+        list.addAll(query.getResultList());
         session.getTransaction().commit();
 
         session.close();
         return list;
     }
+
+    @Override
+    public ArrayList getByNumber() {
+        Session session = factory.openSession();
+        ArrayList<Teacher> list = new ArrayList<>();
+        session.beginTransaction();
+        Query query = session.createQuery(
+                "select t from Teacher t join Address a on t.address.id = a.id where a.number like '0912%'");
+        list.addAll(query.getResultList());
+        session.getTransaction().commit();
+
+        session.close();
+        return list;
+    }
+    @Override
+    public ArrayList getByCityAndNumber() {
+        Session session = factory.openSession();
+        ArrayList<Teacher> list = new ArrayList<>();
+        session.beginTransaction();
+        Query query = session.createQuery(
+                "select t from Teacher t join Address a on t.address.id = a.id where a.number like '0912%' and a.city='tehran'");
+        list.addAll(query.getResultList());
+        session.getTransaction().commit();
+
+        session.close();
+        return list;
+    }
+
 
     @Override
     public void deleteByCode(long code) {
@@ -109,7 +138,7 @@ public class TeacherDaoImpl extends BaseDaoImpl<Teacher> implements TeacherDAO {
         session.beginTransaction();
 
         Teacher teacher = (Teacher) session.createQuery(
-                "from Teacher where teacherCode=" + code + "")
+                "select t from Teacher t where teacherCode=" + code + "")
                 .getSingleResult();
 
         session.getTransaction().commit();

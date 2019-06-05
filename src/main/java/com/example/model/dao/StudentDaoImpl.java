@@ -5,6 +5,8 @@ import com.example.model.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDAO {
@@ -19,7 +21,19 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDAO {
     protected String getEntityName() {
         return "students";
     }
+    @Override
+    public ArrayList getNotInTehran() {
+        Session session = factory.openSession();
+        ArrayList<Student> list = new ArrayList<>();
+        session.beginTransaction();
+        Query query = session.createQuery(
+                "select s from Student s join Address a on s.address.id = a.id where a.city!='tehran'");
+        list.addAll(query.getResultList());
+        session.getTransaction().commit();
 
+        session.close();
+        return list;
+    }
     @Override
     public List search(String string) {
         Session session = factory.openSession();

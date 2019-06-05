@@ -972,40 +972,38 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="245" parent="10" name="courses"/>
-    <table id="246" parent="10" name="teachers"/>
-    <column id="247" parent="245" name="id">
+    <table id="245" parent="10" name="addresses">
+      <Engine>MyISAM</Engine>
+    </table>
+    <table id="246" parent="10" name="courses"/>
+    <table id="247" parent="10" name="teachers"/>
+    <column id="248" parent="245" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="248" parent="245" name="name">
+    <column id="249" parent="245" name="city">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="249" parent="245" name="teacher_id">
+    <column id="250" parent="245" name="number">
       <Position>3</Position>
-      <DataType>bigint(20)|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="250" parent="245" name="FK468oyt88pgk2a0cxrvxygadqg">
-      <ColNames>teacher_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="251" parent="245" name="PRIMARY">
+    <column id="251" parent="245" name="state">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="252" parent="245" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="252" parent="245" name="FK468oyt88pgk2a0cxrvxygadqg">
-      <ColNames>teacher_id</ColNames>
-      <RefSchemaName>university1</RefSchemaName>
-      <RefTableName>teachers</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
     <column id="253" parent="246" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0s</DataType>
@@ -1018,18 +1016,50 @@
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="255" parent="246" name="salary">
+    <column id="255" parent="246" name="teacher_id">
+      <Position>3</Position>
+      <DataType>bigint(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="256" parent="246" name="FK468oyt88pgk2a0cxrvxygadqg">
+      <ColNames>teacher_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="257" parent="246" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="258" parent="246" name="FK468oyt88pgk2a0cxrvxygadqg">
+      <ColNames>teacher_id</ColNames>
+      <RefSchemaName>university1</RefSchemaName>
+      <RefTableName>teachers</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="259" parent="247" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="260" parent="247" name="name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="261" parent="247" name="salary">
       <Position>3</Position>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="256" parent="246" name="teacherCode">
+    <column id="262" parent="247" name="teacherCode">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="257" parent="246" name="PRIMARY">
+    <key id="263" parent="247" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
